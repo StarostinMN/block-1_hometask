@@ -14,7 +14,10 @@
 
 Console.Clear();
 
-FillArrayFromKeybord();
+Console.Write("Введите максимальное количество символов в строке, из которых будет сформирован новый массив: ");
+int maxNumberOfChar = Convert.ToInt32(Console.ReadLine());
+
+Console.WriteLine(GetNumberOfChartCount(FillArrayFromKeybord(), maxNumberOfChar));
 
 string?[] FillArrayFromKeybord()
 {
@@ -27,5 +30,18 @@ string?[] FillArrayFromKeybord()
         InputArrayFromKeybord[k] = Console.ReadLine();
     }
     return InputArrayFromKeybord;
+}
+
+int GetNumberOfChartCount(string?[] strings, int MaxNumberOfChar)
+{
+    int NumberOfCharCount = 0;
+    for (int i = 0; i < strings.Length; i++)
+    {
+        if (strings[i].Length <= MaxNumberOfChar)
+        {
+            NumberOfCharCount++;
+        }
+    }
+    return NumberOfCharCount;
 }
 
