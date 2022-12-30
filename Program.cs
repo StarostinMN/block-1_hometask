@@ -45,3 +45,18 @@ int GetNumberOfChartCount(string?[] strings, int MaxNumberOfChar)
     return NumberOfCharCount;
 }
 
+string?[] GetNewArray(string?[] InputArray, int NumberOfChar)
+{
+    string?[] NewArray = new string?[NumberOfChar];
+    int j = 0;
+    for (int i = 0; i < NumberOfChar; i++)
+    {
+        if (InputArray[i].Length <= NumberOfChar)
+        {
+            NewArray[j]=InputArray[i];
+            j++;
+        }
+    }
+    return NewArray;
+}
+
