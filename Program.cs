@@ -9,54 +9,78 @@
 2. Нарисовать блок-схему алгоритма (можно обойтись блок-схемой основной содержательной части, если вы выделяете её в отдельный метод)
 3. Снабдить репозиторий оформленным текстовым описанием решения (файл README.md)
 4. Написать программу, решающую поставленную задачу
-5. Использовать контроль версий в работе над этим небольшим проектом (не должно быть так, что всё залито одним коммитом, как минимум этапы 2, 3, и 4 должны быть расположены в разных коммитах)
- */
+5. Использовать контроль версий в работе над этим небольшим проектом (не должно быть так, что всё залито одним коммитом, как минимум этапы 2, 3, и 4 должны быть расположены в разных коммитах)*/
 
 Console.Clear();
 
 Console.Write("Введите максимальное количество символов в строке, из которых будет сформирован новый массив: ");
 int maxNumberOfChar = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine(GetNumberOfChartCount(FillArrayFromKeybord(), maxNumberOfChar));
+string?[] strings = FillArrayFromKeybord();
+Console.WriteLine();
+PrintArray(strings);
+
+string?[] newStrings = GetNewArray(strings, (GetNumberOfChartCount(strings, maxNumberOfChar)), maxNumberOfChar);
+PrintArray(newStrings);
 
 string?[] FillArrayFromKeybord()
 {
     Console.Write("Введите требуемое количество элементов строкового массива: ");
     int n = Convert.ToInt32(Console.ReadLine());
-    string?[] InputArrayFromKeybord = new string?[n];
+    string?[] ArrayFromKeybord = new string?[n];
     for (int k = 0; k < n; k++)
     {
         Console.Write($"Введите строку {k + 1}: ");
-        InputArrayFromKeybord[k] = Console.ReadLine();
+        ArrayFromKeybord[k] = Console.ReadLine();
     }
-    return InputArrayFromKeybord;
+    return ArrayFromKeybord;
 }
 
-int GetNumberOfChartCount(string?[] strings, int MaxNumberOfChar)
+int GetNumberOfChartCount(string?[] InputArray, int MaxNumberOfChar)
 {
-    int NumberOfCharCount = 0;
-    for (int i = 0; i < strings.Length; i++)
+    int numberOfCharCount = 0;
+    for (int i = 0; i < InputArray.Length; i++)
     {
-        if (strings[i].Length <= MaxNumberOfChar)
+        if (InputArray[i].Length <= MaxNumberOfChar)
         {
-            NumberOfCharCount++;
+            numberOfCharCount++;
         }
     }
-    return NumberOfCharCount;
+    return numberOfCharCount;
 }
 
-string?[] GetNewArray(string?[] InputArray, int NumberOfChar)
+string?[] GetNewArray(string?[] InputArray, int NumberOfCharCount, int MaxNumberOfChar)
 {
-    string?[] NewArray = new string?[NumberOfChar];
     int j = 0;
-    for (int i = 0; i < NumberOfChar; i++)
+    if (NumberOfCharCount > 0)
     {
-        if (InputArray[i].Length <= NumberOfChar)
+        string?[] NewArray = new string?[NumberOfCharCount];
+        for (int i = 0; i < InputArray.Length; i++)
         {
-            NewArray[j]=InputArray[i];
-            j++;
+            if (InputArray[i].Length <= MaxNumberOfChar)
+            {
+                NewArray[j] = InputArray[i];
+                j++;
+            }
         }
+        return NewArray;
     }
-    return NewArray;
+    else
+    {
+        string?[] NewArray = new string?[1];
+        NewArray[j] = String.Empty;
+        return NewArray;
+    }
+}
+
+void PrintArray(string?[] Array)
+{
+    Console.Write("[");
+    for (int i = 0; i < Array.Length - 1; i++)
+    {
+        Console.Write((Array[i]) + ", ");
+    }
+    Console.Write(Array[Array.Length - 1] + "]");
+    Console.WriteLine();
 }
 
